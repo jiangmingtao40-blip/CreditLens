@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbkj.common.dao.credit.CreditReportDao">
+
+    <!-- 根据任务ID查询报告 -->
+    <select id="selectByTaskId" resultType="com.zbkj.common.model.credit.CreditReport">
+        SELECT * FROM credit_report 
+        WHERE task_id = #{taskId} AND is_deleted = 0
+    </select>
+
+    <!-- 分页查询用户报告 -->
+    <select id="selectPageByUserId" resultType="com.zbkj.common.model.credit.CreditReport">
+        SELECT * FROM credit_report 
+        WHERE user_id = #{userId} AND is_deleted = 0
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 统计用户报告数量 -->
+    <select id="countByUserId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM credit_report 
+        WHERE user_id = #{userId} AND is_deleted = 0
+    </select>
+
+</mapper>
