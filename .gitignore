@@ -141,3 +141,23 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# ===== CreditLens 项目专用 =====
+
+# AI服务 - 上传的征信报告（敏感数据）
+ai-service/uploads/
+ai-service/credit_app.db
+
+# IDE缓存
+.trae/
+.workbuddy/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# uni-app编译输出
+unpackage/
