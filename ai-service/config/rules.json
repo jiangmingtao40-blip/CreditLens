@@ -1,0 +1,218 @@
+{
+  "system": {
+    "name": "征信报告识别系统",
+    "version": "1.0.0",
+    "description": "基于FastAPI + LangChain + DeepSeek的征信报告智能分析服务",
+    "author": "System Auto-Generated"
+  },
+  "service_rules": {
+    "api_endpoints": [
+      {
+        "path": "/health",
+        "method": "GET",
+        "name": "健康检查",
+        "auth_required": false,
+        "rate_limit": 100
+      },
+      {
+        "path": "/api/ocr/upload",
+        "method": "POST",
+        "name": "上传征信报告",
+        "auth_required": true,
+        "rate_limit": 10,
+        "file_types": ["pdf", "jpg", "jpeg", "png"],
+        "max_file_size": 52428800
+      },
+      {
+        "path": "/api/ocr/analyze/{task_id}",
+        "method": "POST",
+        "name": "开始分析",
+        "auth_required": true,
+        "rate_limit": 5
+      },
+      {
+        "path": "/api/ocr/result/{task_id}",
+        "method": "GET",
+        "name": "获取分析结果",
+        "auth_required": true,
+        "rate_limit": 30
+      },
+      {
+        "path": "/api/ocr/task/{task_id}",
+        "method": "DELETE",
+        "name": "删除任务",
+        "auth_required": true,
+        "rate_limit": 10
+      },
+      {
+        "path": "/api/credit/upload",
+        "method": "POST",
+        "name": "用户上传征信报告",
+        "auth_required": true,
+        "rate_limit": 10
+      },
+      {
+        "path": "/api/credit/records",
+        "method": "GET",
+        "name": "获取用户历史记录",
+        "auth_required": true,
+        "rate_limit": 30
+      },
+      {
+        "path": "/api/credit/detail/{id}",
+        "method": "GET",
+        "name": "获取报告详情",
+        "auth_required": true,
+        "rate_limit": 30
+      },
+      {
+        "path": "/api/credit/delete/{id}",
+        "method": "DELETE",
+        "name": "删除报告记录",
+        "auth_required": true,
+        "rate_limit": 10
+      }
+    ],
+    "rate_limiting": {
+      "enabled": true,
+      "redis_prefix": "rate_limit:",
+      "default_window_seconds": 60
+    },
+    "cache_rules": {
+      "result_ttl_seconds": 7200,
+      "task_ttl_seconds": 3600,
+      "enable_cache": true
+    }
+  },
+  "business_rules": {
+    "credit_score": {
+      "base_score": 60,
+      "max_score": 100,
+      "min_score": 0,
+      "factors": [
+        {
+          "name": "逾期记录",
+          "weight": -30,
+          "rules": [
+            {"condition": "has_overdue == true", "score": -30},
+            {"condition": "overdue_count > 0", "score": "-10 * overdue_count"},
+            {"condition": "max_overdue_days > 90", "score": -40},
+            {"condition": "max_overdue_days > 30", "score": -20}
+          ]
+        },
+        {
+          "name": "信贷负债",
+          "weight": -20,
+          "rules": [
+            {"condition": "debt_ratio > 0.7", "score": -20},
+            {"condition": "debt_ratio > 0.5", "score": -10},
+            {"condition": "debt_ratio < 0.3", "score": 10}
+          ]
+        },
+        {
+          "name": "查询记录",
+          "weight": -15,
+          "rules": [
+            {"condition": "recent_3months_queries > 10", "score": -15},
+            {"condition": "recent_3months_queries > 5", "score": -8},
+            {"condition": "recent_3months_queries < 3", "score": 5}
+          ]
+        },
+        {
+          "name": "信贷历史",
+          "weight": 15,
+          "rules": [
+            {"condition": "credit_history_years > 5", "score": 15},
+            {"condition": "credit_history_years > 3", "score": 8},
+            {"condition": "on_time_payment_rate == 100", "score": 20}
+          ]
+        },
+        {
+          "name": "公共记录",
+          "weight": -25,
+          "rules": [
+            {"condition": "has_bankruptcy == true", "score": -50},
+            {"condition": "has_lawsuit == true", "score": -30},
+            {"condition": "has_tax_arrears == true", "score": -25}
+          ]
+        }
+      ],
+      "levels": [
+        {"min": 80, "max": 100, "level": "优秀", "color": "#22c55e", "suggestion": "信用状况优秀，可正常申请各类信贷产品"},
+        {"min": 60, "max": 79, "level": "良好", "color": "#3b82f6", "suggestion": "信用状况良好，建议保持良好还款习惯"},
+        {"min": 40, "max": 59, "level": "一般", "color": "#f59e0b", "suggestion": "信用状况一般，建议先优化信用记录再申请信贷"},
+        {"min": 0, "max": 39, "level": "较差", "color": "#ef4444", "suggestion": "信用状况较差，建议联系金融机构了解详细情况"}
+      ]
+    },
+    "risk_assessment": {
+      "levels": [
+        {"score_range": [80, 100], "level": "低风险", "color": "#22c55e"},
+        {"score_range": [60, 79], "level": "中低风险", "color": "#3b82f6"},
+        {"score_range": [40, 59], "level": "中高风险", "color": "#f59e0b"},
+        {"score_range": [0, 39], "level": "高风险", "color": "#ef4444"}
+      ],
+      "warnings": [
+        {"code": "W001", "name": "存在逾期记录", "severity": "high", "trigger": "overdue_count > 0"},
+        {"code": "W002", "name": "近期查询频繁", "severity": "medium", "trigger": "recent_3months_queries > 5"},
+        {"code": "W003", "name": "负债率过高", "severity": "medium", "trigger": "debt_ratio > 0.7"},
+        {"code": "W004", "name": "存在公共负面记录", "severity": "high", "trigger": "has_public_negative == true"},
+        {"code": "W005", "name": "信用卡利用率过高", "severity": "low", "trigger": "credit_utilization > 0.8"},
+        {"code": "W006", "name": "逾期天数超过90天", "severity": "critical", "trigger": "max_overdue_days > 90"}
+      ]
+    },
+    "field_extraction": {
+      "personal_info": {
+        "name": {"patterns": ["姓名[：:]?([\\u4e00-\\u9fa5]+)", "名[：:]?([\\u4e00-\\u9fa5]+)"], "required": true},
+        "id_card": {"patterns": ["身份证号[：:]?([0-9]{17}[0-9Xx])", "证件号码[：:]?([0-9]{17}[0-9Xx])"], "required": true},
+        "phone": {"patterns": ["手机[：:]?([1][3-9][0-9]{9})", "电话[：:]?([1][3-9][0-9]{9})"], "required": false},
+        "address": {"patterns": ["住址[：:]?([\\u4e00-\\u9fa50-9\\s]+)", "地址[：:]?([\\u4e00-\\u9fa50-9\\s]+)"], "required": false}
+      },
+      "credit_records": {
+        "total_loans": {"patterns": ["贷款[：:]?(\\d+)笔", "共有(\\d+)笔贷款"], "type": "int"},
+        "total_credit_card": {"patterns": ["信用卡[：:]?(\\d+)张", "(\\d+)张信用卡"], "type": "int"},
+        "total_amount": {"patterns": ["授信总额[：:]?([\\d,]+)元", "总授信[：:]?([\\d,]+)元"], "type": "float"},
+        "used_amount": {"patterns": ["已使用[：:]?([\\d,]+)元", "使用额度[：:]?([\\d,]+)元"], "type": "float"}
+      },
+      "overdue_records": {
+        "has_overdue": {"patterns": ["逾期", "逾期记录"], "type": "bool"},
+        "overdue_count": {"patterns": ["逾期(\\d+)次", "(\\d+)次逾期"], "type": "int"},
+        "max_overdue_days": {"patterns": ["逾期(\\d+)天", "最长逾期(\\d+)天"], "type": "int"}
+      },
+      "query_records": {
+        "total_queries": {"patterns": ["查询次数[：:]?(\\d+)", "(\\d+)次查询"], "type": "int"},
+        "recent_3months": {"patterns": ["近3个月(\\d+)次", "近三个月(\\d+)次"], "type": "int"},
+        "query_types": {"patterns": ["查询类型[：:]?([\\u4e00-\\u9fa5,]+)"], "type": "list"}
+      },
+      "public_records": {
+        "has_bankruptcy": {"patterns": ["破产", "破产清算"], "type": "bool"},
+        "has_lawsuit": {"patterns": ["诉讼", "法院", "判决"], "type": "bool"},
+        "has_tax_arrears": {"patterns": ["欠税", "税务"], "type": "bool"}
+      }
+    }
+  },
+  "validation_rules": {
+    "file_validation": {
+      "allowed_types": ["pdf", "jpg", "jpeg", "png"],
+      "max_size_bytes": 52428800,
+      "max_size_mb": 50
+    },
+    "id_card_validation": "^[1-9]\\d{5}(18|19|20)\\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$",
+    "phone_validation": "^1[3-9]\\d{9}$",
+    "task_id_validation": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+  },
+  "security_rules": {
+    "token_expire_hours": 24,
+    "max_login_attempts": 5,
+    "lockout_minutes": 15,
+    "password_min_length": 8,
+    "allowed_origins": ["*"],
+    "cors_enabled": true
+  },
+  "logging_rules": {
+    "log_level": "INFO",
+    "log_format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "log_file": "app.log",
+    "max_file_size_mb": 100,
+    "backup_count": 5
+  }
+}

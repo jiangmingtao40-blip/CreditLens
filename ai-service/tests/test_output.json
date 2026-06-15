@@ -1,0 +1,250 @@
+{
+  "non_streaming": {
+    "personal_info": {
+      "name": "张三",
+      "id_card": "****15032578",
+      "gender": null,
+      "marital_status": "已婚",
+      "address": "上海市浦东新区陆家嘴金融城100号"
+    },
+    "credit_summary": {
+      "credit_cards": [
+        {
+          "issuing_institution": "招商银行",
+          "credit_limit": 100000,
+          "used_amount": 45200,
+          "avg_6month_usage_rate": null
+        },
+        {
+          "issuing_institution": "建设银行",
+          "credit_limit": 80000,
+          "used_amount": 12000,
+          "avg_6month_usage_rate": null
+        },
+        {
+          "issuing_institution": "交通银行",
+          "credit_limit": 50000,
+          "used_amount": 50000,
+          "avg_6month_usage_rate": null
+        }
+      ],
+      "mortgages": [
+        {
+          "institution": "中国工商银行",
+          "loan_amount": 2000000,
+          "balance": 1520000,
+          "status": "正常"
+        }
+      ],
+      "other_loans": [
+        {
+          "type": "汽车贷款",
+          "amount": 180000,
+          "balance": 60000,
+          "status": "正常"
+        },
+        {
+          "type": "消费贷款",
+          "amount": 50000,
+          "balance": 25000,
+          "status": "正常"
+        }
+      ]
+    },
+    "overdue_records": {
+      "overdue_count": 2,
+      "max_overdue_months": 1,
+      "max_monthly_amount": 12500
+    },
+    "query_records": {
+      "recent_1month": 1,
+      "recent_6months": 6,
+      "query_reasons": [
+        {
+          "reason": "信用卡审批",
+          "count": 4
+        },
+        {
+          "reason": "贷款审批",
+          "count": 2
+        }
+      ]
+    },
+    "public_records": {
+      "has_enforcement": false,
+      "has_administrative_penalty": false,
+      "has_tax_arrears": false
+    },
+    "credit_score": 600,
+    "risk_level": "中",
+    "risk_warnings": [
+      "存在未结清逾期记录",
+      "交通银行信用卡当前逾期状态"
+    ]
+  },
+  "streaming": {
+    "personal_info": {
+      "name": "张三",
+      "id_card": "**** **** **** **** 2578",
+      "gender": null,
+      "marital_status": "已婚",
+      "address": "上海市浦东新区陆家嘴金融城100号"
+    },
+    "credit_summary": {
+      "credit_cards": [
+        {
+          "issuing_institution": "招商银行",
+          "credit_limit": 100000.0,
+          "used_amount": 45200.0,
+          "avg_6month_usage_rate": null
+        },
+        {
+          "issuing_institution": "建设银行",
+          "credit_limit": 80000.0,
+          "used_amount": 12000.0,
+          "avg_6month_usage_rate": null
+        },
+        {
+          "issuing_institution": "交通银行",
+          "credit_limit": 50000.0,
+          "used_amount": 50000.0,
+          "avg_6month_usage_rate": null
+        }
+      ],
+      "mortgages": [
+        {
+          "institution": "中国工商银行",
+          "loan_amount": 2000000.0,
+          "balance": 1520000.0,
+          "status": "正常"
+        }
+      ],
+      "other_loans": [
+        {
+          "type": "汽车贷款",
+          "amount": 180000.0,
+          "balance": 60000.0,
+          "status": "正常"
+        },
+        {
+          "type": "消费贷款",
+          "amount": 50000.0,
+          "balance": 25000.0,
+          "status": "正常"
+        }
+      ]
+    },
+    "overdue_records": {
+      "overdue_count": 2,
+      "max_overdue_months": 1,
+      "max_monthly_amount": 12500.0
+    },
+    "query_records": {
+      "recent_1month": 1,
+      "recent_6months": 6,
+      "query_reasons": [
+        {
+          "reason": "信用卡审批",
+          "count": 4
+        },
+        {
+          "reason": "贷款审批",
+          "count": 2
+        }
+      ]
+    },
+    "public_records": {
+      "has_enforcement": false,
+      "has_administrative_penalty": false,
+      "has_tax_arrears": false
+    },
+    "credit_score": 650,
+    "risk_level": "中",
+    "risk_warnings": [
+      "存在未结清逾期记录",
+      "交通银行信用卡当前逾期状态"
+    ]
+  },
+  "json_mode": {
+    "personal_info": {
+      "name": "张三",
+      "id_card": "******199003152578",
+      "gender": null,
+      "marital_status": "已婚",
+      "address": "上海市浦东新区陆家嘴金融城100号"
+    },
+    "credit_summary": {
+      "credit_cards": [
+        {
+          "issuing_institution": "招商银行",
+          "credit_limit": 100000,
+          "used_amount": 45200,
+          "avg_6month_usage_rate": null
+        },
+        {
+          "issuing_institution": "建设银行",
+          "credit_limit": 80000,
+          "used_amount": 12000,
+          "avg_6month_usage_rate": null
+        },
+        {
+          "issuing_institution": "交通银行",
+          "credit_limit": 50000,
+          "used_amount": 50000,
+          "avg_6month_usage_rate": null
+        }
+      ],
+      "mortgages": [
+        {
+          "institution": "中国工商银行",
+          "loan_amount": 2000000,
+          "balance": 1520000,
+          "status": "正常"
+        }
+      ],
+      "other_loans": [
+        {
+          "type": "汽车贷款",
+          "amount": 180000,
+          "balance": 60000,
+          "status": "正常"
+        },
+        {
+          "type": "消费贷款",
+          "amount": 50000,
+          "balance": 25000,
+          "status": "正常"
+        }
+      ]
+    },
+    "overdue_records": {
+      "overdue_count": 2,
+      "max_overdue_months": 1,
+      "max_monthly_amount": 12500
+    },
+    "query_records": {
+      "recent_1month": 1,
+      "recent_6months": 6,
+      "query_reasons": [
+        {
+          "reason": "信用卡审批",
+          "count": 4
+        },
+        {
+          "reason": "贷款审批",
+          "count": 2
+        }
+      ]
+    },
+    "public_records": {
+      "has_enforcement": false,
+      "has_administrative_penalty": false,
+      "has_tax_arrears": false
+    },
+    "credit_score": 650,
+    "risk_level": "中",
+    "risk_warnings": [
+      "存在信用卡逾期记录"
+    ]
+  }
+}

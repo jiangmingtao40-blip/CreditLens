@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>信用解析 - AI驱动的智能征信分析服务</title>
+<link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+<div class="app-wrapper" id="appWrapper">
+<div class="pages-container">
+
+<!-- ==================== PAGE 1: 首页 ==================== -->
+<div class="page active" id="page-home" data-page="0">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="height:662px;flex:0 0 auto;">
+    <div class="hero">
+      <div class="brand">信用解析</div>
+      <div class="tagline">AI驱动的智能征信分析服务</div>
+    </div>
+    <div class="quota-card">
+      <div class="left">
+        <div class="quota-label">免费查询次数</div>
+        <div class="quota-count">3</div>
+      </div>
+      <div class="quota-right">
+        <div class="vip-badge"><span>VIP</span></div>
+        <div class="quota-price">¥9.9/次</div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="goToUpload()">
+      <svg viewBox="0 0 20 20"><path d="M10 3v10M6 7l4-4 4 4M4 15h12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      上传征信报告
+    </button>
+    <div class="hint-text">支持 JPG / PNG / PDF 格式，最大 20MB</div>
+    <div class="section-title">核心功能</div>
+    <div class="feature-row">
+      <div class="feature-card">
+        <div class="feature-icon purple">OCR</div>
+        <div class="feature-name">OCR识别</div>
+        <div class="feature-desc">精准提取文字</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">AI</div>
+        <div class="feature-name">AI分析</div>
+        <div class="feature-desc">深度报告解读</div>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-card">
+        <div class="feature-icon purple">信</div>
+        <div class="feature-name">信用评分</div>
+        <div class="feature-desc">专业评级模型</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon red">险</div>
+        <div class="feature-name">风险提示</div>
+        <div class="feature-desc">预警潜在风险</div>
+      </div>
+    </div>
+    <div class="section-title">使用流程</div>
+    <div class="process-row">
+      <div class="step-item"><div class="step-circle">1</div><div class="step-label">上传报告</div></div>
+      <div class="step-item"><div class="step-circle">2</div><div class="step-label">智能识别</div></div>
+      <div class="step-item"><div class="step-circle">3</div><div class="step-label">AI分析</div></div>
+      <div class="step-item"><div class="step-circle">4</div><div class="step-label">查看报告</div></div>
+    </div>
+    <div class="security-badge">
+      <svg viewBox="0 0 20 20"><path d="M3 2.5h14v11.5L10 18l-7-4V2.5z" fill="#10B981" stroke="#10B981" stroke-width="1"/><path d="M7.5 9l2 2 4-4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="security-text">数据加密传输 · 隐私安全保障</span>
+    </div>
+  </div>
+  <div class="tab-bar-container" id="tabbar-0">
+    <div class="tab-pill">
+      <div class="tab-item active" onclick="switchPage(0)">
+        <svg viewBox="0 0 18 18"><path d="M2.25 1.5h13.5v15H2.25z"/><path d="M6.75 9v7.5"/></svg>
+        <span class="tab-label">首页</span>
+      </div>
+      <div class="tab-item" onclick="switchPage(3)">
+        <svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7.5"/><path d="M9 4.5v6"/></svg>
+        <span class="tab-label">历史</span>
+      </div>
+      <div class="tab-item" onclick="goToUpload()">
+        <svg viewBox="0 0 18 18"><path d="M6 3h6v9H6z"/><path d="M3 12h12v3H3z"/></svg>
+        <span class="tab-label">上传</span>
+      </div>
+      <div class="tab-item" onclick="switchPage(2)">
+        <svg viewBox="0 0 18 18"><path d="M6.75 7.5v3"/><circle cx="9" cy="9" r="7.5"/></svg>
+        <span class="tab-label">结果</span>
+      </div>
+      <div class="tab-item" onclick="switchPage(4)">
+        <svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16.5c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <span class="tab-label">我的</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: 上传报告 ==================== -->
+<div class="page" id="page-upload" data-page="1">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="height:662px;flex:0 0 auto;gap:20px;">
+    <div class="page-header">
+      <span class="back-arrow" onclick="switchPage(0)">←</span>
+      <div class="page-title">上传征信报告</div>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="upload-zone" id="uploadZone">
+      <svg viewBox="0 0 48 48"><path d="M16 8h16v24H16z" stroke="#6366F1" stroke-width="2" fill="none"/><path d="M8 32h32v8H8z" stroke="#6366F1" stroke-width="2" fill="none"/></svg>
+      <div class="upload-hint">点击或拖拽文件到此处</div>
+      <div class="upload-sub">支持 JPG / PNG / PDF 格式，最大 20MB</div>
+    </div>
+    <div class="action-row">
+      <button class="action-btn outline" onclick="demoQuickUpload('拍照截图.png')">
+        <svg viewBox="0 0 20 20"><rect x="1" y="5" width="12" height="12" rx="1" stroke="#6366F1" stroke-width="1.5" fill="none"/><path d="M16 7l3-3v3h-3z" stroke="#6366F1" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        拍照
+      </button>
+      <button class="action-btn filled" onclick="demoQuickUpload('征信报告.pdf')">
+        <svg viewBox="0 0 20 20"><rect x="2" y="2" width="16" height="16" rx="2" stroke="white" stroke-width="1.5" fill="none"/><circle cx="7" cy="7" r="1.5" fill="white"/><path d="M3 14l4-4 3 3 4-4 4 5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        选择图片
+      </button>
+    </div>
+    <div class="tips-card">
+      <div class="tips-title">💡 上传须知</div>
+      <div class="tip-item">• 请上传人行征信中心出具的完整报告</div>
+      <div class="tip-item">• PDF格式自动识别，图片需清晰可辨</div>
+      <div class="tip-item">• 所有数据加密传输，保护您的隐私安全</div>
+    </div>
+  </div>
+  <div class="tab-bar-container" id="tabbar-1">
+    <div class="tab-pill">
+      <div class="tab-item" onclick="switchPage(0)"><svg viewBox="0 0 18 18"><path d="M2.25 1.5h13.5v15H2.25z"/><path d="M6.75 9v7.5"/></svg><span class="tab-label">首页</span></div>
+      <div class="tab-item" onclick="switchPage(3)"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7.5"/><path d="M9 4.5v6"/></svg><span class="tab-label">历史</span></div>
+      <div class="tab-item active"><svg viewBox="0 0 18 18"><path d="M6 3h6v9H6z"/><path d="M3 12h12v3H3z"/></svg><span class="tab-label">上传</span></div>
+      <div class="tab-item" onclick="switchPage(2)"><svg viewBox="0 0 18 18"><path d="M6.75 7.5v3"/><circle cx="9" cy="9" r="7.5"/></svg><span class="tab-label">结果</span></div>
+      <div class="tab-item" onclick="switchPage(4)"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16.5c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: 解析进度 ==================== -->
+<div class="page" id="page-progress" data-page="5">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="gap:24px;">
+    <div class="page-header">
+      <span class="back-arrow" onclick="switchPage(1)">←</span>
+      <div class="page-title">报告解析中</div>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-ring">
+        <span class="percent" id="progressPercent">68%</span>
+      </div>
+      <div class="progress-status">正在识别报告内容...</div>
+      <div class="progress-time">已用时 00:12</div>
+    </div>
+    <div class="step-list">
+      <div class="step-item-progress"><span class="icon">✓</span><span class="step-done">文件上传完成</span></div>
+      <div class="step-item-progress"><span class="icon">⟳</span><span class="step-active">OCR文字识别中...</span></div>
+      <div class="step-item-progress"><span class="icon">○</span><span class="step-pending">AI智能解析</span></div>
+      <div class="step-item-progress"><span class="icon">○</span><span class="step-pending">生成分析报告</span></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn-outline" onclick="cancelProgress()">取消解析</button>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4: 分析结果 ==================== -->
+<div class="page" id="page-results" data-page="2">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="height:662px;flex:0 0 auto;">
+    <div class="page-header">
+      <span class="back-arrow" onclick="switchPage(0)">←</span>
+      <div class="page-title">分析结果</div>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">信用评分</div>
+      <div class="score-value">782</div>
+      <div class="grade-badge"><span>良好</span></div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-icon">✓</div>
+      <div class="risk-info">
+        <div class="risk-title">风险等级：低风险</div>
+        <div class="risk-desc">信用状况良好，无重大风险项</div>
+      </div>
+    </div>
+    <div class="section-title">详细分析</div>
+    <div class="detail-card" onclick="toggleDetail(this)">
+      <div class="card-header">
+        <div class="left"><div class="detail-title">个人信息</div><div class="detail-value green">已识别</div></div>
+        <svg class="detail-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="expand">姓名：张**<br>身份证号：330***********1234<br>婚姻状况：已婚<br>学历：本科</div>
+    </div>
+    <div class="detail-card" onclick="toggleDetail(this)">
+      <div class="card-header">
+        <div class="left"><div class="detail-title">信贷记录</div><div class="detail-value muted">共 5 笔，无异常</div></div>
+        <svg class="detail-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="expand">信用卡：3 笔，正常还款中<br>房贷：1 笔，已还 48/360 期<br>车贷：1 笔，已还 24/36 期<br>无逾期、无呆账</div>
+    </div>
+    <div class="detail-card" onclick="toggleDetail(this)">
+      <div class="card-header">
+        <div class="left"><div class="detail-title">逾期记录</div><div class="detail-value green">无逾期记录</div></div>
+        <svg class="detail-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="expand">过去 5 年内无任何逾期还款记录<br>当前所有贷款均按时还款<br>信用历史表现优秀</div>
+    </div>
+    <div class="detail-card warn" onclick="toggleDetail(this)">
+      <div class="card-header">
+        <div class="left"><div class="detail-title">风险预警</div><div class="detail-value warning">1 项需关注</div></div>
+        <svg class="detail-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="expand">⚠ 近期征信查询次数：3 次/月<br>建议：控制短期内征信查询频率<br>暂无其他风险信号</div>
+    </div>
+  </div>
+  <div class="tab-bar-container" id="tabbar-2">
+    <div class="tab-pill">
+      <div class="tab-item" onclick="switchPage(0)"><svg viewBox="0 0 18 18"><path d="M2.25 1.5h13.5v15H2.25z"/><path d="M6.75 9v7.5"/></svg><span class="tab-label">首页</span></div>
+      <div class="tab-item" onclick="switchPage(3)"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7.5"/><path d="M9 4.5v6"/></svg><span class="tab-label">历史</span></div>
+      <div class="tab-item" onclick="switchPage(1)"><svg viewBox="0 0 18 18"><path d="M6 3h6v9H6z"/><path d="M3 12h12v3H3z"/></svg><span class="tab-label">上传</span></div>
+      <div class="tab-item active"><svg viewBox="0 0 18 18"><path d="M6.75 7.5v3"/><circle cx="9" cy="9" r="7.5"/></svg><span class="tab-label">结果</span></div>
+      <div class="tab-item" onclick="switchPage(4)"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16.5c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 5: 历史记录 ==================== -->
+<div class="page" id="page-history" data-page="3">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="height:662px;flex:0 0 auto;">
+    <div class="page-header">
+      <div class="page-title left">历史记录</div>
+    </div>
+    <div class="record-card">
+      <div class="left">
+        <div class="record-date">2024-03-15 &nbsp; 14:30</div>
+        <div class="record-report">个人信用报告 · 简版</div>
+      </div>
+      <div class="record-score">782</div>
+    </div>
+    <div class="record-card">
+      <div class="left">
+        <div class="record-date">2024-03-01 &nbsp; 10:15</div>
+        <div class="record-report">个人信用报告 · 详细版</div>
+      </div>
+      <div class="record-score">756</div>
+    </div>
+    <div class="record-card">
+      <div class="left">
+        <div class="record-date">2024-02-20 &nbsp; 09:45</div>
+        <div class="record-report">企业信用报告</div>
+      </div>
+      <div class="record-score na">—</div>
+    </div>
+    <div class="end-hint">—&nbsp;&nbsp;已加载全部记录&nbsp;&nbsp;—</div>
+  </div>
+  <div class="tab-bar-container" id="tabbar-3">
+    <div class="tab-pill">
+      <div class="tab-item" onclick="switchPage(0)"><svg viewBox="0 0 18 18"><path d="M2.25 1.5h13.5v15H2.25z"/><path d="M6.75 9v7.5"/></svg><span class="tab-label">首页</span></div>
+      <div class="tab-item active"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7.5"/><path d="M9 4.5v6"/></svg><span class="tab-label">历史</span></div>
+      <div class="tab-item" onclick="switchPage(1)"><svg viewBox="0 0 18 18"><path d="M6 3h6v9H6z"/><path d="M3 12h12v3H3z"/></svg><span class="tab-label">上传</span></div>
+      <div class="tab-item" onclick="switchPage(2)"><svg viewBox="0 0 18 18"><path d="M6.75 7.5v3"/><circle cx="9" cy="9" r="7.5"/></svg><span class="tab-label">结果</span></div>
+      <div class="tab-item" onclick="switchPage(4)"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16.5c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 6: 个人中心 ==================== -->
+<div class="page" id="page-profile" data-page="4">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="height:662px;flex:0 0 auto;">
+    <!-- 已登录：用户信息卡片 -->
+    <div class="profile-header" id="profileLoggedIn">
+      <div class="avatar" id="profileAvatar">张</div>
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">张先生</div>
+        <div class="profile-vip-row">
+          <div class="profile-vip-badge" id="profileVipBadge">VIP</div>
+          <span class="profile-phone" id="profilePhone">138****6789</span>
+        </div>
+      </div>
+    </div>
+    <!-- 未登录：登录入口卡片 -->
+    <div class="login-entry" id="profileLoginEntry" style="display:none;">
+      <div class="login-entry-avatar">👤</div>
+      <div class="login-entry-text">
+        <div class="login-entry-title">登录/注册</div>
+        <div class="login-entry-desc">登录后可查看报告和佣金</div>
+      </div>
+      <svg class="login-entry-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="recharge-card" id="rechargeCard">
+      <div class="coin">💰</div>
+      <div class="recharge-info">
+        <div class="recharge-label">账户余额</div>
+        <div class="recharge-balance" id="profileBalance">¥ 0.00</div>
+      </div>
+      <button class="recharge-btn" id="rechargeBtn" onclick="showRechargeModal()">立即充值</button>
+    </div>
+    <div class="menu-group">
+      <div class="menu-item" onclick="openMyReports()">
+        <svg viewBox="0 0 20 20"><path d="M4 2h12v17H4z" stroke="#6366F1" stroke-width="1.5" fill="none"/><path d="M14 2v5M8 8v6" stroke="#6366F1" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        <span class="menu-text">我的报告</span>
+        <svg class="menu-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="menu-item" onclick="openConsumeRecords()">
+        <svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2" stroke="#6366F1" stroke-width="1.5" fill="none"/><path d="M3 8h14M8 3v14" stroke="#6366F1" stroke-width="1.5" fill="none"/></svg>
+        <span class="menu-text">消费记录</span>
+        <svg class="menu-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="menu-item" onclick="openCommission()">
+        <svg viewBox="0 0 20 20"><circle cx="10" cy="6" r="4" stroke="#6366F1" stroke-width="1.5" fill="none"/><path d="M3 18c0-4 3.1-7 7-7s7 3 7 7" stroke="#6366F1" stroke-width="1.5" fill="none"/></svg>
+        <span class="menu-text">推广佣金</span>
+        <span class="menu-badge" id="commissionBadge">¥0.00</span>
+        <svg class="menu-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="menu-item" onclick="openSettings()">
+        <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#6366F1" stroke-width="1.5" fill="none"/><circle cx="10" cy="10" r="3" stroke="#6366F1" stroke-width="1.5" fill="none"/><path d="M8 13l2-3h4" stroke="#6366F1" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        <span class="menu-text">设置</span>
+        <svg class="menu-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="menu-item" onclick="openContact()">
+        <svg viewBox="0 0 20 20"><path d="M3 3h14v14H3z" stroke="#6366F1" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+        <span class="menu-text">联系客服</span>
+        <svg class="menu-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="menu-item" onclick="openAbout()">
+        <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#6366F1" stroke-width="1.5" fill="none"/><path d="M10 7v7" stroke="#6366F1" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        <span class="menu-text">关于我们</span>
+        <svg class="menu-arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <button class="btn-danger" style="margin-top:8px;" id="logoutBtn" onclick="handleLogout()">退出登录</button>
+  </div>
+  <div class="tab-bar-container" id="tabbar-4">
+    <div class="tab-pill">
+      <div class="tab-item" onclick="switchPage(0)"><svg viewBox="0 0 18 18"><path d="M2.25 1.5h13.5v15H2.25z"/><path d="M6.75 9v7.5"/></svg><span class="tab-label">首页</span></div>
+      <div class="tab-item" onclick="switchPage(3)"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7.5"/><path d="M9 4.5v6"/></svg><span class="tab-label">历史</span></div>
+      <div class="tab-item" onclick="switchPage(1)"><svg viewBox="0 0 18 18"><path d="M6 3h6v9H6z"/><path d="M3 12h12v3H3z"/></svg><span class="tab-label">上传</span></div>
+      <div class="tab-item" onclick="switchPage(2)"><svg viewBox="0 0 18 18"><path d="M6.75 7.5v3"/><circle cx="9" cy="9" r="7.5"/></svg><span class="tab-label">结果</span></div>
+      <div class="tab-item active"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16.5c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 7: 登录页 ==================== -->
+<div class="page" id="page-login" data-page="6">
+  <div class="status-bar">
+    <span class="time">9:41</span><span class="spacer"></span><span class="battery"></span>
+  </div>
+  <div class="content" style="gap:20px;padding-top:40px;">
+    <div class="page-header">
+      <span class="back-arrow" id="loginBackBtn" onclick="goBackFromLogin()">←</span>
+      <div class="page-title">登录信用解析</div>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="login-logo">
+      <div class="login-logo-icon">🛡️</div>
+      <div class="login-logo-text">信用解析</div>
+      <div class="login-logo-sub">AI驱动的智能征信分析服务</div>
+    </div>
+    <!-- 手机号登录 -->
+    <div class="login-form">
+      <div class="input-group">
+        <span class="input-prefix">+86</span>
+        <input type="tel" class="login-input" id="phoneInput" placeholder="请输入手机号" maxlength="11" oninput="onPhoneInput(this)">
+      </div>
+      <div class="input-group" id="codeRow">
+        <input type="text" class="login-input" id="codeInput" placeholder="请输入验证码" maxlength="6">
+        <button class="code-btn" id="codeBtn" onclick="sendVerifyCode()">获取验证码</button>
+      </div>
+      <div class="input-group" id="passwordRow" style="display:none;">
+        <input type="password" class="login-input" id="passwordInput" placeholder="请输入密码（至少6位）">
+      </div>
+      <div style="text-align:right;margin-top:-8px;margin-bottom:4px;">
+        <span style="font-size:12px;color:#6366F1;cursor:pointer;" id="toggleLoginMode" onclick="toggleLoginMode()">密码登录</span>
+      </div>
+      <div class="agree-row">
+        <div class="agree-check" id="agreeCheck" onclick="toggleAgree()"></div>
+        <span class="agree-text">已阅读并同意<span class="agree-link" onclick="event.stopPropagation();toast('《用户服务协议》')">《用户服务协议》</span>和<span class="agree-link" onclick="event.stopPropagation();toast('《隐私政策》')">《隐私政策》</span></span>
+      </div>
+      <button class="btn-login" id="loginBtn" onclick="handleLogin()">登录</button>
+      <button class="btn-wechat-login" onclick="handleWechatLogin()">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-7.5 6c-2.5 0-4.5-2-4.5-4.5S3.5 8 6 8c2 0 3.8 1.4 4.3 3.3.2-.1.5-.3.5-.3C10.3 8.8 8.1 7 5.5 7 2.5 7 0 9.5 0 12.5S2.5 18 5.5 18c.5 0 1-.1 1.5-.3-.2-.4-.3-.8-.5-1.2-.3.1-.7.2-1 .2zm14.5-2c0-3.5-3-6.5-6.5-6.5-3.5 0-6.5 3-6.5 6.5S11.5 21.5 15 21.5c1 0 1.9-.2 2.7-.6l2.3.8-.6-2.2c1.3-1 2.1-2.4 2.1-4z"/></svg>
+        微信一键登录
+      </button>
+    </div>
+    <div class="login-footer">
+      <span>登录即表示同意《用户服务协议》和《隐私政策》</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 模态弹层 ==================== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-sheet" id="modalSheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">标题</div>
+      <div class="modal-close" onclick="closeModal()">✕</div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<!-- ==================== 充值弹层 ==================== -->
+<div class="modal-overlay" id="rechargeOverlay" onclick="closeRechargeModal()">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">账户充值</div>
+      <div class="modal-close" onclick="closeRechargeModal()">✕</div>
+    </div>
+    <div class="modal-body">
+      <div class="recharge-grid" id="rechargeGrid"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="doRecharge()">确认充值</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /pages-container -->
+</div><!-- /app-wrapper -->
+
+<div class="toast" id="toast"></div>
+<script src="script.js?v=6"></script>
+</body>
+</html>
