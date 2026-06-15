@@ -1,0 +1,80 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "征信查询"
+      }
+    },
+    {
+      "path": "pages/upload/upload",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "上传报告"
+      }
+    },
+    {
+      "path": "pages/progress/progress",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "分析中"
+      }
+    },
+    {
+      "path": "pages/result/result",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "分析结果"
+      }
+    },
+    {
+      "path": "pages/records/records",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "历史记录"
+      }
+    },
+    {
+      "path": "pages/profile/profile",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "个人中心"
+      }
+    },
+    {
+      "path": "pages/settings/settings",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/about/about",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "关于我们"
+      }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/vip-center/vip-center",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "会员中心"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "征信报告AI分析",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8FAFC"
+  }
+}
